@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gelişmiş Banka Simülasyon Yönetim Paneli</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        h1 { text-align: center; color: #2c3e50; margin-bottom: 25px; font-size: 26px; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
+        .card { padding: 20px; border-radius: 8px; color: white; text-align: center; font-weight: bold; }
+        .blue { background: #2980b9; } .purple { background: #8e44ad; } .green { background: #27ae60; }
+        .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .chart-box { background: #fff; padding: 20px; border: 1px solid #e1e8ed; border-radius: 8px; }
+        h3 { margin-top: 0; color: #34495e; font-size: 18px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Gelişmiş Banka Kuyruk Simülasyonu (Zaman Profilli)</h1>
+    
+    <div class="grid-3">
+        <div class="card blue">
+            <h3>Vezne Sırası (1 Gişe)</h3>
+            <p style="font-size: 28px;">Ort. Bekleme: 4.12 dk</p>
+        </div>
+        <div class="card purple">
+            <h3>Müşteri Temsilcisi (2 Gişe)</h3>
+            <p style="font-size: 28px;">Ort. Bekleme: 12.45 dk</p>
+        </div>
+        <div class="card green">
+            <h3>Aktif Profil / Gün</h3>
+            <p style="font-size: 28px;">Pazartesi (Yoğun Saatler)</p>
+        </div>
+    </div>
+
+    <div class="charts-grid">
+        <div class="chart-box">
+            <h3>Gişelere Göre Ortalama Bekleme Süreleri</h3>
+            <canvas id="chartGişe"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3>Müşteri Türleri Dağılımı</h3>
+            <canvas id="chartMüşteri"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. Gişe Grafiği
+    new Chart(document.getElementById('chartGişe').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ['Vezne (Para Çekme/Yatırma)', 'Müşteri Temsilcisi (Kredi/Kurumsal)'],
+            datasets: [{
+                label: 'Ortalama Süre (Dakika)',
+                data: [4.12, 12.45],
+                backgroundColor: ['#2980b9', '#8e44ad']
+            }]
+        },
+        options: { responsive: true }
+    });
+
+    // 2. Müşteri Dağılım Grafiği
+    new Chart(document.getElementById('chartMüşteri').getContext('2d'), {
+        type: 'pie', // Pasta Grafiği
+        data: {
+            labels: ['Bireysel Müşteri', 'Kurumsal Müşteri', 'Yabancı Uyruklu'],
+            datasets: [{
+                data: [60, 25, 15],
+                backgroundColor: ['#3498db', '#9b59b6', '#e67e22']
+            }]
+        },
+        options: { responsive: true }
+    });
+</script>
+
+</body>
+</html>
